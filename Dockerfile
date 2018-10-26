@@ -24,13 +24,14 @@ EXPOSE 1194/udp
 ENV OPENVPN_VERSION="release/2.4"
 ENV OS_VERSION=xenial
 
-#System update
+# Update the system and install wget
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
   && apt-get install wget -y \
   && apt-get autoremove -y \
   && apt-get clean
 
+# Add OpenVPN repository and install OpenVPN
 RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add - \
   && echo "deb http://build.openvpn.net/debian/openvpn/$OPENVPN_VERSION $OS_VERSION main" > /etc/apt/sources.list.d/openvpn-aptrepo.list \
   && apt-get update \
@@ -38,8 +39,9 @@ RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add 
   && apt-get autoremove -y \
   && apt-get clean
 
+# Add the start script
 ADD ./ovpn_start.sh /usr/bin/ovpn_start.sh
 
+# Start the VPN service
 WORKDIR /etc/openvpn
-
 CMD ["/usr/bin/ovpn_start.sh"]
