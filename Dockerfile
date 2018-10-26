@@ -38,7 +38,7 @@ RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add 
   && apt-get autoremove -y \
   && apt-get clean
 
-ADD ./data/bin/ovpn_start.sh /usr/bin/ovpn_start.sh
+ADD ./ovpn_start.sh /usr/bin/ovpn_start.sh
 
 WORKDIR /etc/openvpn
 
