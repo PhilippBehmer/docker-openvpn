@@ -40,9 +40,9 @@ RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add 
   && apt-get clean
 
 # Add the start script
-ADD ./openvpn_start.sh /usr/bin/openvpn_start.sh
+ADD ./openvpn_start.sh /root/openvpn_start.sh
+RUN chmod 700 /root/openvpn_start.sh
       
-
 # Start the VPN service
 WORKDIR /etc/openvpn
-CMD ["/usr/bin/openvpn_start.sh"]
+CMD ["/root/openvpn_start.sh"]
