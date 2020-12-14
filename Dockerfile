@@ -1,15 +1,16 @@
 FROM ubuntu:18.04
 
-LABEL maintainer "Philipp Behmer - https://github.com/PhilippBehmer"
+LABEL maintainer="Philipp Behmer - https://github.com/PhilippBehmer"
+LABEL version="OpenVPN 2.5 on Ubuntu 18.04"
 
-#version can be one of:
+# Version can be one of:
 # stable: stable releases only - no alphas, betas or RCs
 # testing: latest releases, including alphas/betas/RCs
 # release/2.3: OpenvPN 2.3 releases
 # release/2.4: OpenVPN 2.4 releases, including alphas/betas/RCs
 # release/2.5: OpenVPN 2.5 releases, including alphas/betas/RCs
 
-#osrelease depends your distribution:
+# OS release depends your distribution:
 # wheezy (Debian 7.x)
 # jessie (Debian 8.x)
 # precise (Ubuntu 12.04)
@@ -18,11 +19,11 @@ LABEL maintainer "Philipp Behmer - https://github.com/PhilippBehmer"
 # bionic (Ubuntu 18.04)
 # focal (Ubuntu 20.04)
 
-#More Info: https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos
+# More Info: https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos
 
-#VOLUME ["/etc/openvpn"]
-#VOLUME ["/var/log"]
-#EXPOSE 1194/udp
+VOLUME ["/etc/openvpn"]
+VOLUME ["/var/log"]
+EXPOSE 1194/udp
 
 ENV OPENVPN_VERSION="release/2.5"
 ENV OS_VERSION=bionic
