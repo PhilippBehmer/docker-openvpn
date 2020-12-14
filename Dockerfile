@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL maintainer "Philipp Behmer - https://github.com/PhilippBehmer"
 
@@ -7,6 +7,7 @@ LABEL maintainer "Philipp Behmer - https://github.com/PhilippBehmer"
 # testing: latest releases, including alphas/betas/RCs
 # release/2.3: OpenvPN 2.3 releases
 # release/2.4: OpenVPN 2.4 releases, including alphas/betas/RCs
+# release/2.5: OpenVPN 2.5 releases, including alphas/betas/RCs
 
 #osrelease depends your distribution:
 # wheezy (Debian 7.x)
@@ -14,35 +15,36 @@ LABEL maintainer "Philipp Behmer - https://github.com/PhilippBehmer"
 # precise (Ubuntu 12.04)
 # trusty (Ubuntu 14.04)
 # xenial (Ubuntu 16.04)
+# bionic (Ubuntu 18.04)
+# focal (Ubuntu 20.04)
 
 #More Info: https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos
 
-VOLUME ["/etc/openvpn"]
-VOLUME ["/var/log"]
-EXPOSE 1194/udp
+#VOLUME ["/etc/openvpn"]
+#VOLUME ["/var/log"]
+#EXPOSE 1194/udp
 
-ENV OPENVPN_VERSION="release/2.4"
-ENV OS_VERSION=xenial
+ENV OPENVPN_VERSION="release/2.5"
+ENV OS_VERSION=bionic
 
-# Update the system and install wget
+
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
-  && apt-get install wget -y \
+  && apt-get install -y wget gnupg2 iptables \
   && apt-get autoremove -y \
   && apt-get clean
 
-# Add OpenVPN repository and install OpenVPN
 RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add - \
   && echo "deb http://build.openvpn.net/debian/openvpn/$OPENVPN_VERSION $OS_VERSION main" > /etc/apt/sources.list.d/openvpn-aptrepo.list \
   && apt-get update \
-  && apt-get install openvpn iptables -y \
+  && apt-get install openvpn -y \
   && apt-get autoremove -y \
   && apt-get clean
 
-# Add the start script
-ADD ./openvpn_start.sh /root/openvpn_start.sh
-RUN chmod 700 /root/openvpn_start.sh
-      
-# Start the VPN service
+#RUN apt-get install -y iputils-ping
+
+ADD ./ovpn_start.sh /usr/bin/ovpn_start.sh
+
 WORKDIR /etc/openvpn
-CMD ["/root/openvpn_start.sh"]
+
+CMD ["/usr/bin/ovpn_start.sh"]
