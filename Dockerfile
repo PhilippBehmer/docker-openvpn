@@ -44,8 +44,8 @@ RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add 
 
 #RUN apt-get install -y iputils-ping
 
-ADD ovpn_start.sh /usr/bin/ovpn_start.sh
+ADD ./openvpn_start.sh /usr/bin/openvpn_start.sh
 
 WORKDIR /etc/openvpn
 
-CMD ["/usr/bin/ovpn_start.sh"]
+CMD ["/usr/bin/openvpn_start.sh"]
