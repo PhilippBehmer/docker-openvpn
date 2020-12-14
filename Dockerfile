@@ -1,7 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL maintainer="Philipp Behmer - https://github.com/PhilippBehmer"
-LABEL version="OpenVPN 2.5 on Ubuntu 18.04"
+LABEL version="OpenVPN 2.5 on Ubuntu 20.04"
 
 # Version can be one of:
 # stable: stable releases only - no alphas, betas or RCs
@@ -26,7 +26,7 @@ VOLUME ["/var/log"]
 EXPOSE 1194/udp
 
 ENV OPENVPN_VERSION="release/2.5"
-ENV OS_VERSION=bionic
+ENV OS_VERSION=focal
 
 
 RUN apt-get update \
