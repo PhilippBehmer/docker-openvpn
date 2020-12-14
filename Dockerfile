@@ -42,9 +42,9 @@ RUN wget -q -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add 
   && apt-get autoremove -y \
   && apt-get clean
 
-#RUN apt-get install -y iputils-ping
-
 ADD ./openvpn_start.sh /usr/bin/openvpn_start.sh
+
+RUN chmod 700 /usr/bin/openvpn_start.sh
 
 WORKDIR /etc/openvpn
 
