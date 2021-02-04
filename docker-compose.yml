@@ -1,0 +1,15 @@
+---
+version: "3.4"
+services:
+  docker-openvpn:
+    build: .
+    container_name: docker-openvpn
+    volumes:
+      - ./data/etc/openvpn:/etc/openvpn
+      - ./data/log/openvpn.log:/var/log/openvpn.log
+      - ./data/log/openvpn-status.log:/var/log/openvpn-status.log
+    network_mode: "host"
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+    restart: unless-stopped
